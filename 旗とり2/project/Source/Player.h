@@ -8,9 +8,11 @@ public:
 	~Player(); // デストラクター 最後に１回だけ呼ばれる
 	void Update() override;
 	void Draw() override;
-
+	VECTOR GetPosition();
+private:
 	int hImage;
-	float x, y;
+//	float x, y;
+	VECTOR position;
 	bool moved;
 	int pattern;
 	int counter;
