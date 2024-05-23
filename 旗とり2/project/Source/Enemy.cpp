@@ -23,7 +23,7 @@ void Enemy::Update()
 	// 敵がプレイヤーに移動するので、敵からプレイヤーのベクトルを作る
 	VECTOR vPlayer = pPos - position;
 	VECTOR vN = VNorm(vPlayer); // これが長さ１のベクトル
-	VECTOR vMove = vN * 0.05; // プレイヤーへ向かう長さ0.05のベクトル
+	VECTOR vMove = vN * 0.8; // プレイヤーへ向かう長さ0.05のベクトル
 	position += vMove;
 }
 

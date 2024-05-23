@@ -4,9 +4,11 @@
 #include <DxLib.h>
 #include "Player.h"
 #include "Enemy.h"
+#include "Item.h"
 
 PlayScene::PlayScene()
 {
+	Instantiate<Item>();
 	Instantiate<Player>();
 	Instantiate<Enemy>();
 }
