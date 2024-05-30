@@ -7,7 +7,7 @@ Player::Player()
 {
 	hImage = LoadGraph("data/image/aoi.png");
 	assert(hImage>0);
-	position.x = 10;
+	position.x = 810;
 	position.y = 20;
 	pattern = 0;
 	counter = 0;
@@ -18,15 +18,15 @@ Player::~Player()
 {
 }
 
-
 void Player::Update()
 {
 	Enemy* pEnemy = FindGameObject<Enemy>();
-	VECTOR enePos = pEnemy->GetPosition();
-	VECTOR diff = enePos - position;
-	if (VSize(diff) < 32+32) {
+	VECTOR ePos = pEnemy->GetPosition();
+	VECTOR d = ePos - position;
+	if (VSize(d) < 32+32){
 		alive = false;
 	}
+
 	if (alive) {
 		moved = false;
 		if (CheckHitKey(KEY_INPUT_D)) {
@@ -82,9 +82,4 @@ void Player::Draw()
 		DrawRectGraph(position.x, position.y, 0, 4*64, 64, 64, hImage, TRUE);
 	}
 	DrawFormatString(0, 30, GetColor(255, 255, 255), "X‚Í%f", position.x);
-}
-
-VECTOR Player::GetPosition()
-{
-	return position;
 }

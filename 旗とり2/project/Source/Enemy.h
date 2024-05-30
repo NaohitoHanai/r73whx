@@ -8,7 +8,9 @@ public:
 	~Enemy(); // デストラクター 最後に１回だけ呼ばれる
 	void Update() override;
 	void Draw() override;
-	VECTOR GetPosition();
+	VECTOR GetPosition() {
+		return position;
+	}
 private:
 	int hImage;
 	VECTOR position;

@@ -5,12 +5,15 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Item.h"
+#include "Score.h"
 
 PlayScene::PlayScene()
 {
-	Instantiate<Item>();
 	Instantiate<Player>();
 	Instantiate<Enemy>();
+	Instantiate<Item>();
+	Instantiate<Item>();
+	Instantiate<Score>();
 }
 
 PlayScene::~PlayScene()
