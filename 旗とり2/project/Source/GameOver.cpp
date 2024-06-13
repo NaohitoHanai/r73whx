@@ -14,13 +14,35 @@ GameOver::~GameOver()
 {
 }
 
+//0`1‚Ì“®‚«•û‚ğ•Ï‰»‚³‚¹‚é
+float ease(float x)
+{
+	const float n1 = 7.5625;
+	const float d1 = 2.75;
+
+	if (x < 1 / d1) {
+		return n1 * x * x;
+	}
+	else if (x < 2 / d1) {
+		return n1 * (x -= 1.5 / d1) * x + 0.75;
+	}
+	else if (x < 2.5 / d1) {
+		return n1 * (x -= 2.25 / d1) * x + 0.9375;
+	}
+	else {
+		return n1 * (x -= 2.625 / d1) * x + 0.984375;
+	}
+}
+
 void GameOver::Update()
 {
+	int MaxTime = 60;
 	frame += 1;
-	if (frame > 30)
-		frame = 30;
-	float time = frame / 30.0f;
-	float rate = time;
+	if (frame > MaxTime)
+		frame = MaxTime;
+	float time = (float)frame / MaxTime;
+	float rate = ease(time);
+
 	float range = (goalY - startY);
 	position.y = range * rate + startY;
 }

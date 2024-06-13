@@ -3,7 +3,7 @@
 
 PlayTime::PlayTime()
 {
-	second = 5 * 60;
+	second = 5*60;
 }
 
 PlayTime::~PlayTime()
@@ -12,14 +12,16 @@ PlayTime::~PlayTime()
 
 void PlayTime::Update()
 {
-	second -= 1;
-	if (second == 0) {
-		Instantiate<GameOver>();
+	if (second > 0) {
+		--second;
+		if (second==0) {
+			Instantiate<GameOver>();
+		}
 	}
 }
 
 void PlayTime::Draw()
 {
 	DrawFormatString(100, 100, GetColor(255, 255, 255),
-		"TIME:%d", second / 60);
+		"TIME:%d.%02d", second/60, (second%60)*100/60);
 }
