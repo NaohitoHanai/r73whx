@@ -7,9 +7,11 @@
 #include "Item.h"
 #include "Score.h"
 #include "PlayTime.h"
+#include "Map.h"
 
 PlayScene::PlayScene()
 {
+	Instantiate<Map>();
 	Instantiate<Player>();
 	Instantiate<Enemy>();
 	Instantiate<Item>();

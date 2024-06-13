@@ -149,6 +149,7 @@
     <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\GameOver.h" />
     <ClInclude Include="Source\Item.h" />
+    <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\playScene.h" />
     <ClInclude Include="Source\PlayTime.h" />
@@ -169,6 +170,7 @@
     <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\GameOver.cpp" />
     <ClCompile Include="Source\Item.cpp" />
+    <ClCompile Include="Source\Map.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\playScene.cpp" />
     <ClCompile Include="Source\PlayTime.cpp" />

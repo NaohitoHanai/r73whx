@@ -13,7 +13,7 @@ PlayTime::~PlayTime()
 void PlayTime::Update()
 {
 	if (second > 0) {
-		--second;
+//		--second;
 		if (second==0) {
 			Instantiate<GameOver>();
 		}

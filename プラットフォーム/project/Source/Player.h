@@ -11,6 +11,9 @@ public:
 	VECTOR GetPosition() {
 		return position;
 	}
+	VECTOR GetCameraPosition() {
+		return cameraPosition;
+	}
 private:
 	int hImage;
 	VECTOR position;
@@ -19,4 +22,6 @@ private:
 	int counter;
 
 	bool alive;
+
+	VECTOR cameraPosition; // ÉJÉÅÉâÇÃà íu
 };

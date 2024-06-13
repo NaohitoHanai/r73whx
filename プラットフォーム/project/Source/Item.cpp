@@ -53,5 +53,7 @@ void Item::Update()
 
 void Item::Draw()
 {
-	DrawRectGraph(position.x, position.y, 0, 0, 64, 64, hImage, TRUE);
+	Player* pPlayer = FindGameObject<Player>();
+	VECTOR p = position - pPlayer->GetCameraPosition();
+	DrawRectGraph(p.x, p.y, 0, 0, 64, 64, hImage, TRUE);
 }
