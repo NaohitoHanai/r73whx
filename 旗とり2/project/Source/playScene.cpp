@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "Item.h"
 #include "Score.h"
+#include "PlayTime.h"
 
 PlayScene::PlayScene()
 {
@@ -14,6 +15,7 @@ PlayScene::PlayScene()
 	Instantiate<Item>();
 	Instantiate<Item>();
 	Instantiate<Score>();
+	Instantiate<PlayTime>();
 }
 
 PlayScene::~PlayScene()
