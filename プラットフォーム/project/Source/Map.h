@@ -17,6 +17,10 @@ public:
 
 	int HitCheckLeft(VECTOR pos);
 
+	int HitCheckDown(VECTOR pos);
+
+	int HitCheckUp(VECTOR pos);
+
 private:
 	int hImage;
 };

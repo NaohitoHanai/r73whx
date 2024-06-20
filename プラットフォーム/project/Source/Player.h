@@ -17,6 +17,7 @@ public:
 private:
 	int hImage;
 	VECTOR position;
+	float speedY; // ジャンプ用のYの移動速度
 	bool moved;
 	int pattern;
 	int counter;
