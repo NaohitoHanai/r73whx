@@ -2,13 +2,14 @@
 #include <assert.h>
 #include "config.h"
 #include "Enemy.h"
+#include "Map.h"
 
 Player::Player()
 {
 	hImage = LoadGraph("data/image/aoi.png");
 	assert(hImage>0);
-	position.x = 0;
-	position.y = 20;
+	position.x = 80;
+	position.y = 300;
 	pattern = 0;
 	counter = 0;
 	alive = true;
@@ -30,10 +31,14 @@ void Player::Update()
 		alive = false;
 	}
 
+	Map* map = FindGameObject<Map>();
 	if (alive) {
 		moved = false;
 		if (CheckHitKey(KEY_INPUT_D)) {
 			position.x += 5;
+			int push1 = map->HitCheckRight(position+VGet(45,5,0));
+			int push2 = map->HitCheckRight(position + VGet(45, 62, 0));
+			position.x -= max(push1, push2);
 			moved = true;
 //			if (position.x >= SCREEN_WIDTH - 64) {
 //				position.x = SCREEN_WIDTH - 64;
@@ -41,6 +46,9 @@ void Player::Update()
 		}
 		if (CheckHitKey(KEY_INPUT_A)) {
 			position.x -= 5;
+			int push1 = map->HitCheckLeft(position + VGet(17, 5, 0));
+			int push2 = map->HitCheckLeft(position + VGet(17, 62, 0));
+			position.x += max(push1, push2);
 			moved = true;
 			if (position.x-cameraPosition.x <= 0)
 				position.x = cameraPosition.x;
