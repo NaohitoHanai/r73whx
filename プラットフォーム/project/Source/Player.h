@@ -11,10 +11,14 @@ public:
 	VECTOR GetPosition() {
 		return position;
 	}
+	void SetPosition(int x, int y);
+
 	VECTOR GetCameraPosition() {
 		return cameraPosition;
 	}
 private:
+	bool recentJumpKey; //前のフレームのジャンプボタン
+
 	int hImage;
 	VECTOR position;
 	float speedY; // ジャンプ用のYの移動速度
@@ -25,4 +29,6 @@ private:
 	bool alive;
 
 	VECTOR cameraPosition; // カメラの位置
+
+	bool jumping; // ジャンプ中・落下中はtrue
 };

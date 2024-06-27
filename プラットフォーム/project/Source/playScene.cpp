@@ -13,9 +13,9 @@ PlayScene::PlayScene()
 {
 	Instantiate<Map>();
 	Instantiate<Player>();
-	Instantiate<Enemy>();
-	Instantiate<Item>();
-	Instantiate<Item>();
+//	Instantiate<Enemy>();
+//	Instantiate<Item>();
+//	Instantiate<Item>();
 	Instantiate<Score>();
 	Instantiate<PlayTime>();
 }

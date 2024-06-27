@@ -57,3 +57,8 @@ void Item::Draw()
 	VECTOR p = position - pPlayer->GetCameraPosition();
 	DrawRectGraph(p.x, p.y, 0, 0, 64, 64, hImage, TRUE);
 }
+
+void Item::SetPosition(int x, int y)
+{
+	position = VGet(x, y, 0);
+}

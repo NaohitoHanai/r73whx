@@ -11,6 +11,7 @@ public:
 	VECTOR GetPosition() {
 		return position;
 	}
+	void SetPosition(int x, int y);
 private:
 	int hImage;
 	VECTOR position;

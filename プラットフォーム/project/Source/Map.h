@@ -6,6 +6,7 @@ class Map : public GameObject {
 public:
 	Map();
 	~Map();
+	void Start() override; // Å‰‚ÉUpdate‚ªŒÄ‚Î‚ê‚é‘O
 	void Draw() override;
 
 	/// <summary>

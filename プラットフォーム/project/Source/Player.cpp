@@ -3,6 +3,11 @@
 #include "config.h"
 #include "Enemy.h"
 #include "Map.h"
+#include <math.h>
+
+
+static const float G = 0.5f;
+static const float JUMP_H = 128;
 
 Player::Player()
 {
@@ -18,6 +23,7 @@ Player::Player()
 	cameraPosition.y = 0;
 	
 	speedY = 0.0f;
+	jumping = false;
 }
 
 Player::~Player()
@@ -55,19 +61,32 @@ void Player::Update()
 			if (position.x - cameraPosition.x <= 0)
 				position.x = cameraPosition.x;
 		}
-		if (CheckHitKey(KEY_INPUT_N)) {
-			// ジャンプ開始
-			speedY = -10.0f;
+		if (jumping == false) {
+			if (CheckHitKey(KEY_INPUT_N)) {
+				if (recentJumpKey == false) {
+					// ジャンプ開始
+					speedY = -sqrt(2*G*JUMP_H);
+					jumping = true;
+				}
+				recentJumpKey = true;
+			}
+			else {
+				recentJumpKey = false;
+			}
 		}
 		position.y += speedY;
-		speedY += 0.5f;
+		speedY += G;
 		if (speedY >= 0) {
-			int push1 = map->HitCheckDown(position + VGet(17, 62, 0));
-			int push2 = map->HitCheckDown(position + VGet(45, 62, 0));
+			int push1 = map->HitCheckDown(position + VGet(17, 63, 0));
+			int push2 = map->HitCheckDown(position + VGet(45, 63, 0));
 			int maxPush = max(push1, push2);
-			if (maxPush > 0) {
-				position.y -= maxPush;
+			if (maxPush > 0) { // 地面に付いてる
+				position.y -= maxPush-1;
 				speedY = 0;
+				jumping = false;
+			}
+			else {
+				jumping = true;
 			}
 		}
 		else {
@@ -115,11 +134,18 @@ void Player::Update()
 void Player::Draw()
 {
 	VECTOR p = position - cameraPosition;
-	if (alive) {
+	if (jumping) {
+		DrawRectGraph(p.x, p.y, 1*64, 2 * 64, 64, 64, hImage, TRUE);
+	} else if (alive) {
 		DrawRectGraph(p.x, p.y, pattern * 64, 0, 64, 64, hImage, TRUE);
 	}
 	else {
 		DrawRectGraph(p.x, p.y, 0, 4*64, 64, 64, hImage, TRUE);
 	}
 	DrawFormatString(0, 30, GetColor(255, 255, 255), "Xは%f", position.x);
+}
+
+void Player::SetPosition(int x, int y)
+{
+	position = VGet(x, y, 0);
 }
