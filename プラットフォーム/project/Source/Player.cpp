@@ -134,13 +134,14 @@ void Player::Update()
 void Player::Draw()
 {
 	VECTOR p = position - cameraPosition;
-	if (jumping) {
-		DrawRectGraph(p.x, p.y, 1*64, 2 * 64, 64, 64, hImage, TRUE);
-	} else if (alive) {
-		DrawRectGraph(p.x, p.y, pattern * 64, 0, 64, 64, hImage, TRUE);
+	if (alive==false) {
+		DrawRectGraph(p.x, p.y, 0, 4 * 64, 64, 64, hImage, TRUE);
 	}
+	else if (jumping) {
+		DrawRectGraph(p.x, p.y, 1 * 64, 2 * 64, 64, 64, hImage, TRUE);
+	} 
 	else {
-		DrawRectGraph(p.x, p.y, 0, 4*64, 64, 64, hImage, TRUE);
+		DrawRectGraph(p.x, p.y, pattern * 64, 0, 64, 64, hImage, TRUE);
 	}
 	DrawFormatString(0, 30, GetColor(255, 255, 255), "X‚Í%f", position.x);
 }
