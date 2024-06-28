@@ -15,4 +15,18 @@ public:
 private:
 	int hImage;
 	VECTOR position;
+	float r;
+
+	// ó‘Ô‘JˆÚ
+	enum State {
+		sFLY = 0,
+		sATTACK,
+		sAWAY,
+		sDEAD,
+	};
+	State state;
+	void updateFly();
+	void updateAttack();
+	void updateAway();
+	void updateDead();
 };

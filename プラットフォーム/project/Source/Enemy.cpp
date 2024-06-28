@@ -9,6 +9,8 @@ Enemy::Enemy()
 
 	position.x = 100;
 	position.y = 200;
+	r = 0;
+	state = sFLY;
 }
 
 Enemy::~Enemy()
@@ -17,6 +19,18 @@ Enemy::~Enemy()
 
 void Enemy::Update()
 {
+	if (state == sFLY) {
+		updateFly();
+	}
+	else if (state == sATTACK) {
+		updateAttack();
+	}
+	else if (state == sAWAY) {
+		updateAway();
+	}
+	else if (state == sDEAD) {
+		updateDead();
+	}
 }
 
 void Enemy::Draw()
@@ -29,4 +43,23 @@ void Enemy::Draw()
 void Enemy::SetPosition(int x, int y)
 {
 	position = VGet(x, y, 0);
+}
+
+void Enemy::updateFly()
+{
+	position.x -= 1;
+	r += 0.05f;
+	position.y += sin(r);
+}
+
+void Enemy::updateAttack()
+{
+}
+
+void Enemy::updateAway()
+{
+}
+
+void Enemy::updateDead()
+{
 }
