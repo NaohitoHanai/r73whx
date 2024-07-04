@@ -33,6 +33,9 @@ void PlayScene::Update()
 	if (CheckHitKey(KEY_INPUT_T)) {
 		SceneManager::ChangeScene("TitleScene");
 	}
+	if (CheckHitKey(KEY_INPUT_R)) {
+		SceneManager::ChangeScene("ResultScene");
+	}
 	SceneBase::Update();
 
 	// ‘¬“x‚ğ‚½‚¹‚é•û–@

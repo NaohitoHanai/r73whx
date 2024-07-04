@@ -28,6 +28,7 @@ Player::Player()
 
 Player::~Player()
 {
+	DeleteGraph(hImage);
 }
 
 void Player::Update()

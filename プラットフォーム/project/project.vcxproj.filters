@@ -56,6 +56,7 @@
     <ClCompile Include="Source\Map.cpp">
       <Filter>PlayScene</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ResultScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\config.h" />
@@ -120,6 +121,12 @@
     <ClInclude Include="Source\Map.h">
       <Filter>PlayScene</Filter>
     </ClInclude>
+    <ClInclude Include="Source\DataCarrier.h">
+      <Filter>TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ResultScene.h">
+      <Filter>ResultScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Library">
@@ -136,6 +143,9 @@
     </Filter>
     <Filter Include="PlayScene">
       <UniqueIdentifier>{8123ada4-16d1-40da-a8f3-3f9e93aafb30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ResultScene">
+      <UniqueIdentifier>{6d93bec5-46c7-44db-9511-aafdbb5fbf49}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

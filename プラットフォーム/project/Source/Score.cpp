@@ -1,8 +1,12 @@
 #include "Score.h"
+#include "DataCarrier.h"
 
 Score::Score()
 {
 	score = 0;
+//	DataCarrier* d = DataCarrier::GetInstance();
+//	d->HighScore = 0;
+
 }
 
 Score::~Score()
@@ -21,4 +25,10 @@ void Score::Draw()
 void Score::Add(int val)
 {
 	score += val;
+	// score‚ªhighScore‚æ‚è‘å‚«‚¯‚ê‚Î
+	// highScore‚ðXV
+	DataCarrier* d = DataCarrier::GetInstance();
+	if (score > d->HighScore) {
+		d->HighScore = score;
+	}
 }

@@ -15,6 +15,7 @@ Enemy::Enemy()
 
 Enemy::~Enemy()
 {
+	DeleteGraph(hImage);
 }
 
 void Enemy::Update()

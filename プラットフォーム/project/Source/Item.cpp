@@ -17,6 +17,7 @@ Item::Item()
 
 Item::~Item()
 {
+	DeleteGraph(hImage);
 }
 
 void Item::Update()

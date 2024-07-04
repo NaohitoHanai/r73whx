@@ -145,6 +145,7 @@
     <ClInclude Include="Source\bootScene.h" />
     <ClInclude Include="Source\component.h" />
     <ClInclude Include="Source\config.h" />
+    <ClInclude Include="Source\DataCarrier.h" />
     <ClInclude Include="Source\debugScreen.h" />
     <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\GameOver.h" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\playScene.h" />
     <ClInclude Include="Source\PlayTime.h" />
+    <ClInclude Include="Source\ResultScene.h" />
     <ClInclude Include="Source\sceneFactory.h" />
     <ClInclude Include="Source\Score.h" />
     <ClInclude Include="Source\timer.h" />
@@ -174,6 +176,7 @@
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\playScene.cpp" />
     <ClCompile Include="Source\PlayTime.cpp" />
+    <ClCompile Include="Source\ResultScene.cpp" />
     <ClCompile Include="Source\sceneFactory.cpp" />
     <ClCompile Include="Source\Score.cpp" />
     <ClCompile Include="Source\timer.cpp" />

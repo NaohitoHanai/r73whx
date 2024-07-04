@@ -27,6 +27,7 @@ Map::Map()
 
 Map::~Map()
 {
+	DeleteGraph(hImage);
 }
 
 void Map::Start()

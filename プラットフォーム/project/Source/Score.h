@@ -11,4 +11,5 @@ public:
 	void Add(int val);
 private:
 	int score;
+	int highScore;
 };
