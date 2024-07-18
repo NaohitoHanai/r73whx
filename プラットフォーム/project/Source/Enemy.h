@@ -15,6 +15,7 @@ public:
 private:
 	int hImage;
 	VECTOR position;
+	VECTOR velocity;
 	float r;
 
 	// ó‘Ô‘JˆÚ
@@ -24,9 +25,12 @@ private:
 		sAWAY,
 		sDEAD,
 	};
+
 	State state;
 	void updateFly();
 	void updateAttack();
 	void updateAway();
 	void updateDead();
+
+	float timer;
 };
