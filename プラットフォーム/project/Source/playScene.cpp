@@ -8,9 +8,11 @@
 #include "Score.h"
 #include "PlayTime.h"
 #include "Map.h"
+#include "Square.h"
 
 PlayScene::PlayScene()
 {
+	Instantiate<Square>();
 	Instantiate<Map>();
 	Instantiate<Player>();
 //	Instantiate<Enemy>();

@@ -4,7 +4,7 @@
 #include "Enemy.h"
 #include "Map.h"
 #include <math.h>
-
+#include "Square.h"
 
 static const float G = 0.5f;
 static const float JUMP_H = 128;
@@ -62,6 +62,10 @@ void Player::Update()
 			if (position.x - cameraPosition.x <= 0)
 				position.x = cameraPosition.x;
 		}
+		if (CheckHitKey(KEY_INPUT_B)) {
+			Square* p = Instantiate<Square>();
+			p->SetPosition(position);
+		}	
 		if (jumping == false) {
 			if (CheckHitKey(KEY_INPUT_N)) {
 				if (recentJumpKey == false) {

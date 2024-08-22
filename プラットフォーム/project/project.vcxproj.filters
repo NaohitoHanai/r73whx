@@ -57,6 +57,9 @@
       <Filter>PlayScene</Filter>
     </ClCompile>
     <ClCompile Include="Source\ResultScene.cpp" />
+    <ClCompile Include="Source\Square.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\config.h" />
@@ -126,6 +129,9 @@
     </ClInclude>
     <ClInclude Include="Source\ResultScene.h">
       <Filter>ResultScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Square.h">
+      <Filter>PlayScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
