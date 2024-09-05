@@ -60,6 +60,9 @@
     <ClCompile Include="Source\Square.cpp">
       <Filter>PlayScene</Filter>
     </ClCompile>
+    <ClCompile Include="Library\csvReader.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\config.h" />
@@ -132,6 +135,9 @@
     </ClInclude>
     <ClInclude Include="Source\Square.h">
       <Filter>PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\csvReader.h">
+      <Filter>Library</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

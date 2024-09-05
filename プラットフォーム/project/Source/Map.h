@@ -1,7 +1,7 @@
 #pragma once
 //Map.h
 #include "../Library/gameObject.h"
-
+#include "../Library/csvReader.h"
 class Map : public GameObject {
 public:
 	Map();
@@ -24,4 +24,5 @@ public:
 
 private:
 	int hImage;
+	CsvReader* csv;
 };

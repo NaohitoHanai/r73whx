@@ -31,4 +31,7 @@ private:
 	VECTOR cameraPosition; // カメラの位置
 
 	bool jumping; // ジャンプ中・落下中はtrue
+
+	float G;
+	float JumpH;
 };

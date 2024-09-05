@@ -5,12 +5,29 @@
 #include "Map.h"
 #include <math.h>
 #include "Square.h"
+#include "../Library/csvReader.h"
 
-static const float G = 0.5f;
-static const float JUMP_H = 128;
+//static const float G = 0.5f;
+//static const float JUMP_H = 128;
 
 Player::Player()
 {
+	G = 0.5;
+	JumpH = 128;
+
+	CsvReader* csv = new CsvReader("data/playerParam.csv");
+	// assertする
+	for (int line = 0; line < csv->GetLines(); line++) {
+		std::string com = csv->GetString(line, 0);
+		if (com == "Gravity") {
+			G = csv->GetFloat(line, 1);
+		}
+		if (com == "JumpHeight") {
+			JumpH = csv->GetFloat(line, 1);
+		}
+	}
+	delete csv;
+
 	hImage = LoadGraph("data/image/aoi.png");
 	assert(hImage>0);
 	position.x = 180;
@@ -34,10 +51,12 @@ Player::~Player()
 void Player::Update()
 {
 	Enemy* pEnemy = FindGameObject<Enemy>();
-	VECTOR ePos = pEnemy->GetPosition();
-	VECTOR d = ePos - position;
-	if (VSize(d) < 32+32){
-		alive = false;
+	if (pEnemy != nullptr) {
+		VECTOR ePos = pEnemy->GetPosition();
+		VECTOR d = ePos - position;
+		if (VSize(d) < 32 + 32) {
+			alive = false;
+		}
 	}
 
 	Map* map = FindGameObject<Map>();
@@ -70,7 +89,7 @@ void Player::Update()
 			if (CheckHitKey(KEY_INPUT_N)) {
 				if (recentJumpKey == false) {
 					// ジャンプ開始
-					speedY = -sqrt(2*G*JUMP_H);
+					speedY = -sqrt(2*G*JumpH);
 					jumping = true;
 				}
 				recentJumpKey = true;
