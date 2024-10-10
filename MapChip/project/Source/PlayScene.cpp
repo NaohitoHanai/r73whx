@@ -5,7 +5,7 @@
 PlayScene::PlayScene()
 {
 	SetCameraPositionAndTarget_UpVecY(
-		VGet(40.0f, 200.0f, -200.0f),
+		VGet(200.0f, 1000.0f, -1000.0f),
 		VGet(0, 0, 0));
 
 	new Field();
