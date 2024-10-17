@@ -4,7 +4,7 @@
 /// </summary>
 /// <author>N.Hanai</author>
 
-#include <DxLib.h>
+#include "MyDxLib.h"
 #include <string>
 #include "SceneBase.h"
 #include "ObjectManager.h"

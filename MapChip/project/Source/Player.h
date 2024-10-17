@@ -10,4 +10,9 @@ public:
 	void Draw() override;
 private:
 	VECTOR position;
+
+	VECTOR start; // 補間のスタート地点
+	VECTOR goal;  // 補間のゴール地点
+	int frameCounter; // 経過時間（フレーム数）
+	int totalFrame;  // 全体時間
 };

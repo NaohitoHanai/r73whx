@@ -18,6 +18,7 @@ public:
 	}
 private:
 	bool recentJumpKey; //前のフレームのジャンプボタン
+	bool recentShotKey; // 前のフレームの発射ボタン
 
 	int hImage;
 	VECTOR position;

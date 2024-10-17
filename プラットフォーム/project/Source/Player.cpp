@@ -6,6 +6,7 @@
 #include <math.h>
 #include "Square.h"
 #include "../Library/csvReader.h"
+#include "Stone.h"
 
 //static const float G = 0.5f;
 //static const float JUMP_H = 128;
@@ -121,6 +122,18 @@ void Player::Update()
 				position.y += maxPush;
 				speedY = 0;
 			}
+		}
+
+		// êŒÇìäÇ∞ÇÈ
+		if (CheckHitKey(KEY_INPUT_M)) {
+			if (recentShotKey == false) {
+				Stone* st = Instantiate<Stone>();
+				st->SetPosition(position+VGet(32, 10, 0));
+			}
+			recentShotKey = true;
+		}
+		else {
+			recentShotKey = false;
 		}
 
 		if (moved) {

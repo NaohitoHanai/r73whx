@@ -147,6 +147,7 @@
     <ClInclude Include="ImGui\imstb_truetype.h" />
     <ClInclude Include="Library\App.h" />
     <ClInclude Include="Library\GameObject.h" />
+    <ClInclude Include="Library\MyDxLib.h" />
     <ClInclude Include="Library\ObjectManager.h" />
     <ClInclude Include="Library\SceneBase.h" />
     <ClInclude Include="Library\SceneManager.h" />

@@ -7,6 +7,8 @@ public:
 	~Field();
 	void Update() override;
 	void Draw() override;
+
+	bool IsWallBlock(VECTOR pos);
 private:
 	int hModel;
 	// struct VECTOR {
