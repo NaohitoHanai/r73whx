@@ -8,6 +8,7 @@ public:
 	~Player();
 	void Update() override;
 	void Draw() override;
+	VECTOR Position() { return position; }
 private:
 	VECTOR position;
 
