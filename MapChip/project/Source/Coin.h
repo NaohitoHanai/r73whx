@@ -13,4 +13,5 @@ private:
 	VECTOR position;
 	int hModel;
 	bool got;
+	float gotSpeed;
 };
