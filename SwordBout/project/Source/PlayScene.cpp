@@ -1,8 +1,14 @@
 #include "PlayScene.h"
 #include <DxLib.h>
-
+#include "Player.h"
+#include "Field.h"
 PlayScene::PlayScene()
 {
+	SetCameraPositionAndTarget_UpVecY(
+		VGet(0, 300.0f, -500.0f),
+		VGet(0, 100.0f, 0));
+	new Player();
+	new Field();
 }
 
 PlayScene::~PlayScene()
