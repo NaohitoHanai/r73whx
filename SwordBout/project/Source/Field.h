@@ -7,4 +7,13 @@ public:
 	Field();
 	~Field();
 	void Update() override;
+
+	/// <summary>
+	/// 地面とRayの当たり判定をする
+	/// </summary>
+	/// <param name="pos1">Rayの始点</param>
+	/// <param name="pos2">Rayの終点</param>
+	/// <param name="hit">当たった座標を返す</param>
+	/// <returns>当たっていればtrue</returns>
+	bool SearchGround(VECTOR pos1, VECTOR pos2, VECTOR* hit = nullptr);
 };
