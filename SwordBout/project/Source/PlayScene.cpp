@@ -2,6 +2,7 @@
 #include <DxLib.h>
 #include "Player.h"
 #include "Field.h"
+#include "Goblin.h"
 PlayScene::PlayScene()
 {
 	SetCameraPositionAndTarget_UpVecY(
@@ -9,6 +10,7 @@ PlayScene::PlayScene()
 		VGet(0, 100.0f, 0));
 	new Player();
 	new Field();
+	new Goblin();
 }
 
 PlayScene::~PlayScene()
