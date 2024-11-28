@@ -5,8 +5,21 @@
 class Goblin : public Object3D {
 public:
 	Goblin();
+	Goblin(VECTOR pos, float rotY);
 	~Goblin();
 	void Update() override;
+	void Draw() override;
+	void SetPosition(VECTOR pos) {
+		transform.position = pos;
+	}
+
+	bool CheckLine(VECTOR p1, VECTOR p2);
 private:
 	Animator* anim;
+
+	int hWeapon;
+	bool damaged;
+
+	VECTOR lastP1; // 前のフレームのp1
+	VECTOR lastP2; // 前のフレームのp2
 };

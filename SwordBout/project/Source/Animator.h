@@ -7,7 +7,11 @@ public:
 	Animator(int m);
 	~Animator();
 	void Update();
-	void Play(std::string filename);
+	void Play(std::string filename, bool loop);
+	bool IsFinish();
+	float CurrentAnimTime() {
+		return animTime;
+	}
 private:
 	int model;
 	int handle;
@@ -15,4 +19,5 @@ private:
 	float animTime;
 	int animMaxTime;
 	std::string currentFile;
+	bool loopMode;
 };

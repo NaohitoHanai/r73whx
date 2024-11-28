@@ -3,6 +3,9 @@
 #include "Player.h"
 #include "Field.h"
 #include "Goblin.h"
+
+int n = 0;
+
 PlayScene::PlayScene()
 {
 	SetCameraPositionAndTarget_UpVecY(
@@ -10,7 +13,8 @@ PlayScene::PlayScene()
 		VGet(0, 100.0f, 0));
 	new Player();
 	new Field();
-	new Goblin();
+	new Goblin(VGet(100,0,0), 0);
+	new Goblin(VGet(0,0,100), DegToRad(90.0));
 }
 
 PlayScene::~PlayScene()

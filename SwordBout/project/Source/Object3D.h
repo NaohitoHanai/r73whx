@@ -15,6 +15,9 @@ public:
 	virtual ~Object3D();
 	virtual void Update() override;
 	virtual void Draw() override;
+	Transform GetTransform() {
+		return transform;
+	}
 protected: // Œp³‚Ì”h¶ƒNƒ‰ƒX‚ªg‚¦‚é
 	int hModel;
 	Transform transform;

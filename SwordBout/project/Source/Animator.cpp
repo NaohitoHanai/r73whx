@@ -20,14 +20,26 @@ Animator::~Animator()
 
 void Animator::Update()
 {
-	animTime += 0.5f;
-	if (animTime >= animMaxTime) { // ループするためには、最大値を引く
-		animTime -= animMaxTime;
+	if (CheckHitKey(KEY_INPUT_I)) {
+		animTime += 0.05f;
+	}
+	else {
+		animTime += 0.5f;
+	}
+	if (loopMode) {
+		if (animTime >= animMaxTime) { // ループするためには、最大値を引く
+			animTime -= animMaxTime;
+		}
+	}
+	else {
+		if (animTime > animMaxTime) { // ループしないので、最後で止める
+			animTime = animMaxTime;
+		}
 	}
 	MV1SetAttachAnimTime(model, attachID, animTime);
 }
 
-void Animator::Play(std::string filename)
+void Animator::Play(std::string filename, bool loop)
 {
 	if (currentFile == filename) {
 		return;
@@ -44,4 +56,14 @@ void Animator::Play(std::string filename)
 	animTime = 0.0f;
 	animMaxTime = MV1GetAnimTotalTime(handle, 0);
 	currentFile = filename;
+	loopMode = loop;
+}
+
+bool Animator::IsFinish()
+{
+	if (loopMode == false) {
+		if (animTime >= animMaxTime)
+			return true;
+	}
+	return false;
 }
