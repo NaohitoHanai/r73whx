@@ -18,8 +18,20 @@ private:
 	Animator* anim;
 
 	int hWeapon;
-	bool damaged;
+//	bool damaged;
 
 	VECTOR lastP1; // 前のフレームのp1
 	VECTOR lastP2; // 前のフレームのp2
+
+	enum State {
+		S_IDLE,
+		S_RUN,
+		S_ATTACK,
+		S_DAMAGE,
+	};
+	State state;
+	void UpdateIdle();
+	void UpdateRun();
+	void UpdateAttack();
+	void UpdateDamage();
 };

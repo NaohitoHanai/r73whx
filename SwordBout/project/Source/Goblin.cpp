@@ -1,6 +1,9 @@
 #include "Goblin.h"
 #include <assert.h>
 #include "Field.h"
+#include "../ImGui/imgui.h"
+#include "Player.h"
+
 
 Goblin::Goblin() : Goblin(VGet(0,0,0), 0)
 {
@@ -20,7 +23,7 @@ Goblin::Goblin(VECTOR pos, float rotY)
 	hWeapon = MV1LoadModel("data/Character/Weapon/Axe/Axe.mv1");
 	assert(hWeapon > 0);
 
-	damaged = false;
+	state = S_IDLE;
 
 	transform.position = pos;
 	transform.rotation.y = rotY;
@@ -33,11 +36,25 @@ Goblin::~Goblin()
 
 void Goblin::Update()
 {
+	ImGui::Begin("GOBLIN");
+	ImGui::InputInt("State", (int*)&state);
+	ImGui::End();
+
 	anim->Update();
-	if (damaged) {
-		if (anim->IsFinish()) {
-			anim->Play("data/Character/Goblin/Anim_Neutral.mv1", true);
-		}
+
+	switch (state) {
+	case S_IDLE:
+		UpdateIdle();
+		break;
+	case S_RUN:
+		UpdateRun();
+		break;
+	case S_ATTACK:
+		UpdateAttack();
+		break;
+	case S_DAMAGE:
+		UpdateDamage();
+		break;
 	}
 	// 地面に立たせる
 	Field* field = FindGameObject<Field>();
@@ -73,9 +90,44 @@ bool Goblin::CheckLine(VECTOR p1, VECTOR p2)
 	}
 	if (ret) {
 		anim->Play("data/Character/Goblin/Anim_Damage.mv1", false);
-		damaged = true;
+		state = S_DAMAGE;
 	}
 	lastP1 = p1;
 	lastP2 = p2;
 	return ret;
+}
+
+void Goblin::UpdateIdle()
+{
+	Player* p = FindGameObject<Player>();
+	if (p == nullptr) {
+		return;
+	}
+	// Goblinの視野の中に、Playerが入ったら、
+	VECTOR forPlayer = p->GetTransform().position - transform.position;
+	if (VSize(forPlayer) > 500) { // 距離を確認
+		return;
+	}
+	VECTOR forward = VGet(0, 0, 1) * MGetRotY(transform.rotation.y);
+	VECTOR a = VNorm(forPlayer);
+	float dot = VDot(forward, a); // cosθを求める
+	if (dot >= cos(DegToRad(30.0f))) {
+		state = S_RUN;
+	}
+}
+
+void Goblin::UpdateRun()
+{
+}
+
+void Goblin::UpdateAttack()
+{
+}
+
+void Goblin::UpdateDamage()
+{
+	if (anim->IsFinish()) {
+		anim->Play("data/Character/Goblin/Anim_Neutral.mv1", true);
+		state = S_IDLE;
+	}
 }
