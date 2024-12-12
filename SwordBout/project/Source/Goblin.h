@@ -24,14 +24,18 @@ private:
 	VECTOR lastP2; // 前のフレームのp2
 
 	enum State {
-		S_IDLE,
-		S_RUN,
-		S_ATTACK,
-		S_DAMAGE,
+		S_IDLE, // その場にいる
+		S_RUN, // 追いかける
+		S_ATTACK, // 攻撃する
+		S_BACK, // 元の位置に戻る
+		S_DAMAGE, // ダメージを喰らう
 	};
 	State state;
 	void UpdateIdle();
 	void UpdateRun();
 	void UpdateAttack();
+	void UpdateBack();
 	void UpdateDamage();
+
+	VECTOR basePosition; // 基準の位置
 };

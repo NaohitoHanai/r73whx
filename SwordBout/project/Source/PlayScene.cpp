@@ -13,8 +13,8 @@ PlayScene::PlayScene()
 		VGet(0, 100.0f, 0));
 	new Player();
 	new Field();
-	new Goblin(VGet(100,0,0), 0);
-	new Goblin(VGet(0,0,100), DegToRad(90.0));
+	new Goblin(VGet(0,0,-2000), 0);
+	new Goblin(VGet(-2000,0,0), DegToRad(90.0));
 }
 
 PlayScene::~PlayScene()
