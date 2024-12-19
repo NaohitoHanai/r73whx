@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Field.h"
 #include "Goblin.h"
+#include "Camera.h"
 
 int n = 0;
 
@@ -12,9 +13,11 @@ PlayScene::PlayScene()
 		VGet(0, 300.0f, -500.0f),
 		VGet(0, 100.0f, 0));
 	new Player();
+	new Camera();
 	new Field();
-	new Goblin(VGet(0,0,-2000), 0);
-	new Goblin(VGet(-2000,0,0), DegToRad(90.0));
+	new Goblin(VGet(    0, 0, -500), DegToRad(180.0));
+	new Goblin(VGet(  300, 0, -700), DegToRad(90.0));
+	new Goblin(VGet( -300, 0, -400), DegToRad(90.0));
 }
 
 PlayScene::~PlayScene()

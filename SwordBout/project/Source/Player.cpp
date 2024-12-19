@@ -2,6 +2,7 @@
 #include <assert.h>
 #include "Field.h"
 #include "Goblin.h"
+#include "Camera.h"
 
 Player::Player()
 {
@@ -66,17 +67,6 @@ void Player::Update()
 		transform.position = hitPos;
 	}
 
-	// カメラの計算
-	VECTOR position = VGet(0, 300.0f, -300.0f)*
-			MGetRotY(transform.rotation.y) + transform.position; // カメラの位置
-	VECTOR target = VGet(0, 100.0f, 500.0f) *
-			MGetRotY(transform.rotation.y) + transform.position; // 注視点（カメラの見る場所）
-	if (CheckHitKey(KEY_INPUT_U)) { // 上から見る用
-		position = VGet(0, 1000.0f, -300.0f) *
-			MGetRotY(transform.rotation.y) + transform.position; // カメラの位置
-	}
-	SetCameraPositionAndTarget_UpVecY(position, target);
-
 #if 0
 	/** 骨をいじる実験 **/
 	armRot += DegToRad(3.0f);
@@ -105,17 +95,39 @@ void Player::Draw()
 
 void Player::UpdateStop()
 {
+	Camera* c = FindGameObject<Camera>();
+	// Dを押したら右へ進む、Aを押したら左へ進む
+	//* 進んだ方向を向いて、走るアニメーション
+	// WとDを同時押ししたら、斜めに速度10で動く
+	//* WASDを押さなければ、移動せずに待機アニメーション
+		// 入力のベクトルを作る（長さは１）
+	VECTOR inputDir = VGet(0, 0, 0); // 入力方向
 	if (CheckHitKey(KEY_INPUT_W)) {
-		//		transform.position.z += 2.0f * cosf(transform.rotation.y);
-		//		transform.position.x += 2.0f * sinf(transform.rotation.y);
-		VECTOR velocity = VGet(0, 0, 2) * MGetRotY(transform.rotation.y);
-		//    回ってないときに進むベクトル * Y軸回転行列(角度)
+		inputDir.z = 1.0f;
+	}
+	if (CheckHitKey(KEY_INPUT_D)) {
+		inputDir.x = 1.0f;
+	}
+	if (CheckHitKey(KEY_INPUT_A)) {
+		inputDir.x = -1.0f;
+	}
+	if (CheckHitKey(KEY_INPUT_S)) {
+		inputDir.z = -1.0f;
+	}
+	if (VSize(inputDir)>0) {
+		inputDir = VNorm(inputDir); // 長さを１にする
+		// 移動ベクトル＝入力ベクトル×カメラの回転×速度
+		VECTOR velocity = inputDir * MGetRotY(c->GetTransform().rotation.y) * 10.0f;
+		// 座標 ＋＝ 移動ベクトル
 		transform.position += velocity;
+		// キャラの向きは、移動ベクトルから求める
+		transform.rotation.y = atan2f(velocity.x, velocity.z);
 		anim->Play("data/Character/Player/Anim_Run.mv1", true);
 	}
 	else {
 		anim->Play("data/Character/Player/Anim_Neutral.mv1", true);
 	}
+
 	if (CheckHitKey(KEY_INPUT_D)) {
 		transform.rotation.y += 3.0f * DX_PI_F / 180.0f;
 	}
