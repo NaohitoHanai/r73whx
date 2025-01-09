@@ -3,6 +3,7 @@
 
 static const float XRotMax = DegToRad(85.0f);
 static const float XRotMin = DegToRad(-45.0f);
+
 Camera::Camera()
 {
 	transform.rotation.x = DegToRad(30.0f);
@@ -14,11 +15,18 @@ Camera::~Camera()
 
 void Camera::Update()
 {
+	if (CheckHitKey(KEY_INPUT_L)) { // ÉJÉÅÉâêUìÆ
+		swing = VGet(0,10.0f,0);
+	} else {
+		swing = VGet(0,0,0);
+	}
+
 	Player* p = FindGameObject<Player>();
 	VECTOR pPos = p->GetTransform().position;
 	VECTOR pRot = p->GetTransform().rotation;
 	VECTOR position = VGet(0,300,-300); // âº
 	VECTOR target = VGet(0,100,500); // âº
+
 	if (CheckHitKey(KEY_INPUT_RIGHT)) {
 		transform.rotation.y += DegToRad(3.0f);
 	}
@@ -54,7 +62,7 @@ void Camera::Update()
 	}
 #endif
 	forward = VGet(0,0,1) * MGetRotY(transform.rotation.y);
-	SetCameraPositionAndTarget_UpVecY(position, target);
+	SetCameraPositionAndTarget_UpVecY(position+swing, target+swing);
 }
 
 VECTOR Camera::Forward()

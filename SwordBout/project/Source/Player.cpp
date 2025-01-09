@@ -1,5 +1,6 @@
 #include "Player.h"
 #include <assert.h>
+#include "../ImGui/imgui.h"
 #include "Field.h"
 #include "Goblin.h"
 #include "Camera.h"
@@ -114,6 +115,9 @@ void Player::UpdateStop()
 	if (CheckHitKey(KEY_INPUT_S)) {
 		inputDir.z = -1.0f;
 	}
+	int inputX, inputY;
+	GetJoypadAnalogInput(&inputX, &inputY, DX_INPUT_KEY_PAD1);
+	inputDir += VGet(inputX/1000.0f, 0, -inputY/1000.0f);
 	if (VSize(inputDir)>0) {
 		inputDir = VNorm(inputDir); // ’·‚³‚ð‚P‚É‚·‚é
 		// ˆÚ“®ƒxƒNƒgƒ‹“ü—ÍƒxƒNƒgƒ‹~ƒJƒƒ‰‚Ì‰ñ“]~‘¬“x
@@ -134,7 +138,8 @@ void Player::UpdateStop()
 	if (CheckHitKey(KEY_INPUT_A)) {
 		transform.rotation.y -= 3.0f * DX_PI_F / 180.0f;
 	}
-	if (CheckHitKey(KEY_INPUT_M)) { // UŒ‚
+	int keys = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+	if (CheckHitKey(KEY_INPUT_M) || (keys & PAD_INPUT_3) !=0 ) { // UŒ‚
 		anim->Play("data/Character/Player/Anim_Attack1.mv1", false);
 		state = S_ATTACK1;
 	}

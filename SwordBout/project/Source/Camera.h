@@ -11,4 +11,5 @@ public:
 	VECTOR Forward();
 private:
 	VECTOR forward;
+	VECTOR swing;
 };
