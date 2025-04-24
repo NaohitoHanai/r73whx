@@ -1,7 +1,7 @@
 #include "Player.h"
 #include <assert.h>
 #include "../ImGui/imgui.h"
-#include "Field.h"
+#include "Stage.h"
 #include "Goblin.h"
 #include "Camera.h"
 
@@ -22,6 +22,8 @@ Player::Player()
 	armRot = 0.0f;
 #endif
 	state = S_STOP;
+
+	collider = new SphereCollider(VGet(0, 50, 0), 50);
 }
 
 Player::~Player()
@@ -61,9 +63,9 @@ void Player::Update()
 	}
 
 	// ’n–Ê‚É—§‚½‚¹‚é
-	Field* field = FindGameObject<Field>();
+	Stage* stage = FindGameObject<Stage>();
 	VECTOR hitPos; // “–‚½‚Á‚½êŠ‚ð•Ô‚µ‚Ä‚à‚ç‚¤‚½‚ß
-	if (field->SearchGround(transform.position + VGet(0, 1000, 0),
+	if (stage->SearchObject(transform.position + VGet(0, 1000, 0),
 			transform.position + VGet(0, -1000, 0), &hitPos)) {
 		transform.position = hitPos;
 	}

@@ -3,6 +3,7 @@
 #include <vector>
 #include "Goblin.h"
 #include "StageObj.h"
+#include "Field.h"
 
 using namespace std;
 
@@ -57,4 +58,44 @@ Stage::~Stage()
 
 void Stage::Draw()
 {
+}
+
+bool Stage::SearchObject(VECTOR pos1, VECTOR pos2, VECTOR* hit)
+{
+	bool ret = false;
+	std::list<StageObj*> objs = FindGameObjects<StageObj>();
+#if false
+	// イテレーターで回す方
+	for (std::list<StageObj*>::iterator itr = objs.begin();
+										itr != objs.end(); itr++) {
+		(*itr)->SearchObject(pos1, pos2, hit);
+	}
+#endif
+	// 範囲forで回す方
+	float nearestDist = VSize(pos1-pos2); // 一番近い距離
+	VECTOR nearest; // 結果
+	VECTOR tmp;
+	Field* f = FindGameObject<Field>();
+	if (f->SearchGround(pos1, pos2, &tmp)) { // 当たった
+		float nowDist = VSize(tmp - pos1);
+		if (nowDist < nearestDist) {
+			nearestDist = nowDist;
+			nearest = tmp;
+			ret = true;
+		}
+	}
+	for (StageObj* obj : objs) {
+		if (obj->SearchObject(pos1, pos2, &tmp)) { // 当たった
+			float nowDist = VSize(tmp-pos1);
+			if (nowDist < nearestDist) {
+				nearestDist = nowDist;
+				nearest = tmp;
+				ret = true;
+			}
+		}
+	}
+	if (hit != nullptr) {
+		*hit = nearest;
+	}
+	return ret;
 }

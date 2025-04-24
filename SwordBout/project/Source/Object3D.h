@@ -7,6 +7,17 @@ public:
 	VECTOR position;
 	VECTOR rotation;
 	VECTOR scale;
+	MATRIX matrix; // í«â¡
+};
+
+class SphereCollider {
+public:
+	VECTOR center;
+	float radius;
+	SphereCollider(VECTOR c, float r) {
+		center = c;
+		radius = r;
+	}
 };
 
 class Object3D : public GameObject {
@@ -21,4 +32,5 @@ public:
 protected: // åpè≥ÇÃîhê∂ÉNÉâÉXÇ™égÇ¶ÇÈ
 	int hModel;
 	Transform transform;
+	SphereCollider* collider;
 };
