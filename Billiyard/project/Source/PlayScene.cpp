@@ -1,7 +1,11 @@
 #include "PlayScene.h"
+#include "Ball.h"
 
 PlayScene::PlayScene()
 {
+	for (int i = 0; i < 16; i++) {
+		new Ball(i, VGet(i * 100+200, 100, 0));
+	}
 }
 
 PlayScene::~PlayScene()
