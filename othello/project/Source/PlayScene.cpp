@@ -1,7 +1,11 @@
 #include "PlayScene.h"
+#include "Board.h"
+#include "Player.h"
 
 PlayScene::PlayScene()
 {
+	new Board();
+	new Player();
 }
 
 PlayScene::~PlayScene()
