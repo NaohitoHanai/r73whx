@@ -152,8 +152,6 @@
     <ClInclude Include="Library\SceneBase.h" />
     <ClInclude Include="Library\SceneManager.h" />
     <ClInclude Include="Library\Time.h" />
-    <ClInclude Include="Source\Ball.h" />
-    <ClInclude Include="Source\BallManager.h" />
     <ClInclude Include="Source\BootScene.h" />
     <ClInclude Include="Source\Screen.h" />
     <ClInclude Include="Source\PlayScene.h" />
@@ -174,8 +172,6 @@
     <ClCompile Include="Library\ObjectManager.cpp" />
     <ClCompile Include="Library\SceneManager.cpp" />
     <ClCompile Include="Library\Time.cpp" />
-    <ClCompile Include="Source\Ball.cpp" />
-    <ClCompile Include="Source\BallManager.cpp" />
     <ClCompile Include="Source\BootScene.cpp" />
     <ClCompile Include="Source\PlayScene.cpp" />
     <ClCompile Include="Source\SceneFactory.cpp" />

@@ -7,9 +7,10 @@ Ball::Ball(int num, VECTOR pos)
 	position = pos;
 	hImage = LoadGraph("data/textures/billiyard.png");
 
-	power = 5.0f;
+	power = 20.0f;
 	angle = 0.0f;
 	velocity = VGet(0,0,0);
+	addVec = VGet(0,0,0);
 }
 
 Ball::~Ball()
@@ -29,6 +30,7 @@ void Ball::Update()
 		velocity.x *= -1.0f;
 		float in = position.x-44; // めり込んだ量（ただしマイナス 
 		position.x -= in;
+		position.x = 44;
 	}
 	if (position.x + 44 >= Screen::WIDTH) { // 右に当たった
 		velocity.x *= -1.0f;
@@ -54,21 +56,6 @@ void Ball::Update()
 	} else {
 		velocity = VNorm(velocity) * len;
 	}
-
-	// 他の玉と当てる
-	std::list<Ball*> balls = FindGameObjects<Ball>();
-	for (Ball* b : balls) {
-		if (b == this)
-			continue;
-		if (VSize(b->position - position) < 44 + 44) {
-			VECTOR dir = b->position - position;
-			dir = VNorm(dir); // 力を渡す向きベクトル
-			float addPower = VDot(velocity, dir);
-			VECTOR addVec = dir * addPower;
-			b->velocity += addVec;
-			velocity -= addVec;
-		}
-	}
 }
 
 void Ball::Draw()
@@ -86,6 +73,35 @@ void Ball::Draw()
 		DrawLine(position.x, position.y, 
 			pos2.x, pos2.y, GetColor(255,0,0));
 	}
+}
+
+void Ball::ResetVec()
+{
+	addVec = VGet(0,0,0);
+}
+
+void Ball::HitBall(Ball* b)
+{
+	VECTOR diff = b->position - position;
+	if (VSize(diff) < 44 + 44) {//当たっている
+		VECTOR dir = VNorm(diff); // 力を渡す向きベクトル(長さ１)
+		// 引き離す
+		float overlapValue = 44+44- VSize(diff);
+		position -= dir * (overlapValue/2.0f);// dirの逆向きに、overlapValueの半分
+		b->position += dir * (overlapValue/2.0f);// dirの向きに、overlapValueの半分
+		// 相手に力を渡す
+		float addPower = VDot(velocity, dir); // 渡すベクトル
+		float getPower = VDot(b->velocity, dir * -1); // もらうベクトル
+		b->addVec += dir * addPower;
+		addVec -= dir * addPower;
+		addVec -= dir * getPower; // dirの逆向きなので
+		b->addVec += dir * getPower;
+	}
+}
+
+void Ball::AddVec()
+{
+	velocity += addVec;
 }
 
 void Ball::Control()

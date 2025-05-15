@@ -50,12 +50,6 @@
     <ClCompile Include="Library\Time.cpp">
       <Filter>Library</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Ball.cpp">
-      <Filter>PlayScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\BallManager.cpp">
-      <Filter>PlayScene</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Screen.h" />
@@ -119,12 +113,6 @@
     </ClInclude>
     <ClInclude Include="Library\myDxLib.h">
       <Filter>Library</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\BallManager.h">
-      <Filter>PlayScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Ball.h">
-      <Filter>PlayScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
