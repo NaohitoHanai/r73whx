@@ -13,8 +13,9 @@ public:
 		BLACK,
 		WHITE,
 	};
-	void Put(int x, int y, CELL_STATE color);
+	bool Put(int x, int y, CELL_STATE color);
 private:
 	static const int CELL_NUM = 8;
 	CELL_STATE cells[CELL_NUM+2][CELL_NUM+2];
+	bool CanPut(int x, int y, CELL_STATE color);
 };

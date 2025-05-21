@@ -5,7 +5,10 @@
 PlayScene::PlayScene()
 {
 	new Board();
-	new Player();
+	player[0] = new Player(Board::BLACK);
+	player[1] = new Player(Board::WHITE);
+	turn = 0;
+	player[turn]->TurnStart();
 }
 
 PlayScene::~PlayScene()
@@ -14,6 +17,13 @@ PlayScene::~PlayScene()
 
 void PlayScene::Update()
 {
+	if (player[turn]->TurnEnded()) {
+		if (turn==0)
+			turn = 1;
+		else
+			turn = 0;
+		player[turn]->TurnStart();
+	}
 	if (CheckHitKey(KEY_INPUT_T)) {
 		SceneManager::ChangeScene("TITLE");
 	}

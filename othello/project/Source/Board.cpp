@@ -14,8 +14,10 @@ Board::Board()
 	}
 	cells[4][4] = BLACK;
 	cells[5][5] = BLACK;
+	cells[3][5] = WHITE;
 	cells[4][5] = WHITE;
 	cells[5][4] = WHITE;
+	cells[5][3] = WHITE;
 }
 
 Board::~Board()
@@ -50,7 +52,36 @@ void Board::Draw()
 	}
 }
 
-void Board::Put(int x, int y, CELL_STATE color)
+
+
+bool Board::Put(int mouseX, int mouseY, CELL_STATE color)
 {
-	cells[2][3] = BLACK;
+	int x = (mouseX - LEFT) / CELL_SIZE;
+	if (mouseX-LEFT < 0 || x >= 8)
+		return false; // 範囲外なので置けない
+	int y = (mouseY - TOP) / CELL_SIZE;
+	if (mouseY-TOP < 0 || y >= 8)
+		return false; // 範囲外なので置けない
+	if (cells[y + 1][x + 1] == FREE) {
+		// ひっくり返せるか調べる
+		if (CanPut(x+1, y+1, color)) {
+			cells[y + 1][x + 1] = color;
+			return true;
+		}
+	}
+	return false; // すでに置いてあるので置けない
+}
+
+bool Board::CanPut(int x, int y, CELL_STATE color)
+{
+	CELL_STATE other = (color == BLACK) ? WHITE : BLACK;
+	// 右側で挟めるか調べる
+	for (int n = 1; n < 8; n++) {
+		if (cells[y][x + n] == FREE)
+			return false;
+		if (cells[y][x + n] == color) {
+			return (n>1);
+		}
+	}
+	return false;
 }
