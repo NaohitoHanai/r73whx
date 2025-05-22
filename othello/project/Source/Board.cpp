@@ -5,8 +5,17 @@ const int DISC_RADIUS = 30;
 const int LEFT = 50;
 const int TOP = 10;
 
+int sum(int n) {
+	if (n == 0)
+		return 0;
+	int x = sum(n-1);
+	return x+n;
+}
+
 Board::Board()
 {
+	sum(2);
+
 	for (int y = 0; y < CELL_NUM + 2; y++) {
 		for (int x = 0; x < CELL_NUM + 2; x++) {
 			cells[y][x] = FREE;
@@ -66,6 +75,7 @@ bool Board::Put(int mouseX, int mouseY, CELL_STATE color)
 		// ひっくり返せるか調べる
 		if (CanPut(x+1, y+1, color)) {
 			cells[y + 1][x + 1] = color;
+			Turn(x+1, y+1, color);
 			return true;
 		}
 	}
@@ -74,14 +84,75 @@ bool Board::Put(int mouseX, int mouseY, CELL_STATE color)
 
 bool Board::CanPut(int x, int y, CELL_STATE color)
 {
-	CELL_STATE other = (color == BLACK) ? WHITE : BLACK;
-	// 右側で挟めるか調べる
-	for (int n = 1; n < 8; n++) {
-		if (cells[y][x + n] == FREE)
-			return false;
-		if (cells[y][x + n] == color) {
-			return (n>1);
+	for (int dx = -1; dx <= 1; dx++) {
+		for (int dy = -1; dy <= 1; dy++) {
+			if (dx == 0 && dy == 0)
+				continue;
+			if (CanPutSub(x, y, dx, dy, color) > 0) {
+				return true;
+			}
 		}
 	}
 	return false;
+	//CELL_STATE other = (color == BLACK) ? WHITE : BLACK;
+	//// 右側で挟めるか調べる
+
+	//for (int n = 1; n < 8; n++) {
+	//	if (cells[y][x + n] == FREE)
+	//		return false;
+	//	if (cells[y][x + n] == color) {
+	//		return (n>1);
+	//	}
+	//}
+	//return false;
 }
+
+int Board::CanPutSub(int x, int y, int dx, int dy, CELL_STATE color)
+{
+	if (cells[y+dy][x+dx] == FREE)
+		return -10; // 挟んでないので終わる
+	if (cells[y+dy][x+dx] == color) { // 自分なので終わる
+		return 0;
+	}
+	// 相手の色
+	return CanPutSub(x+dx, y+dy, dx, dy, color)+1; // １つ右を見る
+}
+
+void Board::Turn(int x, int y, CELL_STATE color)
+{
+	for (int dx = -1; dx <= 1; dx++) {
+		for (int dy = -1; dy <= 1; dy++) {
+			if (dx == 0 && dy == 0)
+				continue;
+			TurnSub(x, y, dx, dy, color);
+		}
+	}
+}
+
+bool Board::TurnSub(int x, int y, int dx, int dy, CELL_STATE color)
+{
+	if (cells[y + dy][x + dx] == FREE)
+		return false; // 挟んでないので終わる
+	if (cells[y + dy][x + dx] == color) { // 自分なので終わる
+		return true;
+	}
+	// 相手の色
+	if (TurnSub(x + dx, y + dy, dx, dy, color)) {
+		cells[y+dy][x+dx] = color;
+		return true;
+	}
+	return false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
