@@ -2,7 +2,7 @@
 
 ComPlayer::ComPlayer(Board::CELL_STATE color) : Player(color)
 {
-	waitTimer = 3.0f;
+	waitTimer = 0.5f;
 }
 
 ComPlayer::~ComPlayer()
@@ -32,7 +32,7 @@ void ComPlayer::Update()
 	waitTimer -= Time::DeltaTime();
 	if (waitTimer > 0)
 		return;
-	waitTimer = 3.0f;
+	waitTimer = 0.5f;
 
 	// 一番大きな点のマスを求めて、
 	// そこに置く

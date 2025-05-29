@@ -5,6 +5,9 @@ const int DISC_RADIUS = 30;
 const int LEFT = 50;
 const int TOP = 10;
 
+int lastPutX = 0; // 最後に置いたところ
+int lastPutY = 0;
+
 int sum(int n) {
 	if (n == 0)
 		return 0;
@@ -23,10 +26,8 @@ Board::Board()
 	}
 	cells[4][4] = BLACK;
 	cells[5][5] = BLACK;
-	cells[3][5] = WHITE;
 	cells[4][5] = WHITE;
 	cells[5][4] = WHITE;
-	cells[5][3] = WHITE;
 }
 
 Board::~Board()
@@ -57,8 +58,28 @@ void Board::Draw()
 			} else if (cells[y + 1][x + 1] == WHITE) {
 				DrawCircle(drawX, drawY, DISC_RADIUS, GetColor(255, 255, 255), 1);
 			}
+			if (x == lastPutX && y == lastPutY) {
+				DrawCircle(drawX, drawY, 10, GetColor(255, 0, 0), 1);
+			}
 		}
 	}
+
+	int black = 0;
+	int white = 0;
+	for (int y = 1; y <= 8; y++) {
+		for (int x = 1; x <= 8; x++) {
+			switch (cells[y][x]) {
+			case BLACK:
+				black++;
+				break;
+			case WHITE:
+				white++;
+				break;
+			}
+		}
+	}
+	DrawFormatString(700, 400, GetColor(255,0,0),
+		"黒%d : 白%d", black, white);
 }
 
 
@@ -75,6 +96,8 @@ bool Board::Put(int mouseX, int mouseY, CELL_STATE color)
 		// ひっくり返せるか調べる
 		if (CanPut(x+1, y+1, color)) {
 			cells[y + 1][x + 1] = color;
+			lastPutX = x;
+			lastPutY = y;
 			Turn(x+1, y+1, color);
 			return true;
 		}
@@ -107,6 +130,20 @@ bool Board::CanPut(int x, int y, CELL_STATE color)
 	//	}
 	//}
 	//return false;
+}
+
+bool Board::IsPass(CELL_STATE color)
+{
+	// 全部のマスで置けなければtrue
+	// →１つでも置ければfalse
+	for (int x = 1; x <= 8; x++) {
+		for (int y = 1; y <= 8; y++) {
+			if (CanPut(x, y, color)) {
+				return false;
+			}
+		}
+	}
+	return true;
 }
 
 int Board::CanPutSub(int x, int y, int dx, int dy, CELL_STATE color)
