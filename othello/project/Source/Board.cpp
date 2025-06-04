@@ -105,20 +105,21 @@ bool Board::Put(int mouseX, int mouseY, CELL_STATE color)
 	return false; // ‚·‚Å‚É’u‚¢‚Ä‚ ‚é‚Ì‚Å’u‚¯‚È‚¢
 }
 
-bool Board::CanPut(int x, int y, CELL_STATE color)
+int Board::CanPut(int x, int y, CELL_STATE color)
 {
+	int get = 0;
 	if (cells[y][x] != FREE)
-		return false;
+		return 0;
 	for (int dx = -1; dx <= 1; dx++) {
 		for (int dy = -1; dy <= 1; dy++) {
 			if (dx == 0 && dy == 0)
 				continue;
-			if (CanPutSub(x, y, dx, dy, color) > 0) {
-				return true;
-			}
+			int n = CanPutSub(x, y, dx, dy, color);
+			if (n > 0)
+				get += n;
 		}
 	}
-	return false;
+	return get;
 	//CELL_STATE other = (color == BLACK) ? WHITE : BLACK;
 	//// ‰E‘¤‚Å‹²‚ß‚é‚©’²‚×‚é
 

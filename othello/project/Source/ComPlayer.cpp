@@ -9,22 +9,36 @@ ComPlayer::~ComPlayer()
 {
 }
 
+static int Score[8][8] = {
+	{100,1,50,50,50,50,1,100},
+	{ 1, 1,1,1,1,1,1,1},
+	{ 50,1,80,1,1,80,1,50},
+	{ 50,1,1,1,1,1,1,50},
+	{ 50,1,1,1,1,1,1,50},
+	{ 50,1,80,1,1,80,1,50},
+	{  1,1,1,1,1,1,1,1},
+	{100,1,50,50,50,50,1,100},
+};
+
 void ComPlayer::Update()
 {
 	if (!active)
 		return;
+
+	Board* bo = FindGameObject<Board>();
 
 	for (int x = 0; x < 8; x++) {
 		for (int y = 0; y < 8; y++) {
 			evalPoint[y][x] = 0;
 		}
 	}
-	// 全部のマスの評価点を計算
-	Board* bo = FindGameObject<Board>();
+
+	// 評価点の計算をする→evalPointに代入する
 	for (int x = 0; x < 8; x++) {
 		for (int y = 0; y < 8; y++) {
-			if (bo->CanPut(x + 1, y + 1, myColor)) {
-				evalPoint[y][x] = rand() + 1;
+			int n = bo->CanPut(x + 1, y + 1, myColor);
+			if (n > 0) {
+				evalPoint[y][x] += Score[y][x];
 			}
 		}
 	}
