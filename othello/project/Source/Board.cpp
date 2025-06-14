@@ -133,6 +133,27 @@ int Board::CanPut(int x, int y, CELL_STATE color)
 	//return false;
 }
 
+std::list<Board::IDX> Board::CanPut2(int x, int y, CELL_STATE color)
+{
+	if (cells[y][x] != FREE) {
+		return std::list<Board::IDX>();
+	}
+	std::list<Board::IDX> ret;
+	for (int dx = -1; dx <= 1; dx++) {
+		for (int dy = -1; dy <= 1; dy++) {
+			if (dx == 0 && dy == 0)
+				continue;
+			std::list<Board::IDX> ret2 = CanPutSub2(x, y, dx, dy, color);
+			if (ret2.size() > 0) {
+				for (auto& r : ret2)
+					ret.push_back(r);
+				ret2.clear();
+			}
+		}
+	}
+	return ret;
+}
+
 bool Board::IsPass(CELL_STATE color)
 {
 	// 全部のマスで置けなければtrue
@@ -156,6 +177,21 @@ int Board::CanPutSub(int x, int y, int dx, int dy, CELL_STATE color)
 	}
 	// 相手の色
 	return CanPutSub(x+dx, y+dy, dx, dy, color)+1; // １つ右を見る
+}
+
+std::list<Board::IDX> Board::CanPutSub2(int x, int y, int dx, int dy, CELL_STATE color)
+{
+	std::list<Board::IDX> ret;
+	ret.clear();
+	for (int i = 1; i <= 8; i++) {
+		if (cells[y + dy * i][x + dx * i] == FREE) {
+			ret.clear();
+			return ret; // 挟んでないので終わる
+		}
+		if (cells[y + dy*i][x + dx*i] == color) // 自分なので終わる
+			return ret;
+		ret.push_back(IDX(x + dx * i - 1, y + dy * i - 1));
+	}
 }
 
 void Board::Turn(int x, int y, CELL_STATE color)

@@ -2,7 +2,7 @@
 
 ComPlayer::ComPlayer(Board::CELL_STATE color) : Player(color)
 {
-	waitTimer = 0.5f;
+	waitTimer = 5.0f;
 }
 
 ComPlayer::~ComPlayer()
@@ -10,14 +10,25 @@ ComPlayer::~ComPlayer()
 }
 
 static int Score[8][8] = {
-	{100,1,50,50,50,50,1,100},
-	{ 1, 1,1,1,1,1,1,1},
-	{ 50,1,80,1,1,80,1,50},
-	{ 50,1,1,1,1,1,1,50},
-	{ 50,1,1,1,1,1,1,50},
-	{ 50,1,80,1,1,80,1,50},
-	{  1,1,1,1,1,1,1,1},
-	{100,1,50,50,50,50,1,100},
+	{500,-50,50,30,30,50,-50,500},
+	{ -50, -50, 5,5,5, 5,-50,-50},
+	{ 50,5,10,5,5,10,5,50},
+	{ 30,5, 5,5,5, 5,5,31},
+	{ 30,5, 5,5,5, 5,5,31},
+	{ 50,5,10,5,5,10,5,50},
+	{  -50,-50, 5,5,5, 5,-50,-50},
+	{500,-50,50,31,31,50,-50,500},
+};
+
+static int Score2[8][8] = {
+	{500,30,30,30,30,50,30,500},
+	{ 30, -50, 5,5,5, 5,-50,30},
+	{ 50,5,10,5,5,10,5,30},
+	{ 30,5, 5,5,5, 5,5,31},
+	{ 30,5, 5,5,5, 5,5,31},
+	{ 50,5,10,5,5,10,5,50},
+	{  30,-50, 5,5,5, 5,-50,30},
+	{ 500,30,50,31,31,50,30,500},
 };
 
 void ComPlayer::Update()
@@ -36,17 +47,23 @@ void ComPlayer::Update()
 	// 評価点の計算をする→evalPointに代入する
 	for (int x = 0; x < 8; x++) {
 		for (int y = 0; y < 8; y++) {
-			int n = bo->CanPut(x + 1, y + 1, myColor);
-			if (n > 0) {
-				evalPoint[y][x] += Score[y][x];
+			std::list<Board::IDX> n = bo->CanPut2(x + 1, y + 1, myColor);
+			if (n.size() > 0) {
+				evalPoint[y][x] = Score[y][x];
 			}
+			for (auto d : n) {
+				evalPoint[y][x] += Score2[d.y][d.x];
+			}
+			if (evalPoint[y][x]< 0 && n.size()>0)
+				evalPoint[y][x] = n.size();
+
 		}
 	}
 
 	waitTimer -= Time::DeltaTime();
 	if (waitTimer > 0)
 		return;
-	waitTimer = 0.5f;
+	waitTimer = 5.0f;
 
 	// 一番大きな点のマスを求めて、
 	// そこに置く
