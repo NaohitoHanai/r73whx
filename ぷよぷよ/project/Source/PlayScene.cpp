@@ -1,7 +1,9 @@
 #include "PlayScene.h"
+#include "Field.h"
 
 PlayScene::PlayScene()
 {
+	new Field();
 }
 
 PlayScene::~PlayScene()
