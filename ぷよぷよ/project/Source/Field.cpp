@@ -121,14 +121,14 @@ void Field::Update()
 			prevKey = false;
 		}
 	}
+	Connect();
 }
 
 void Field::Draw()
 {
 	for (int y = 0; y < HEIGHT; y++) {
 		for (int x = 0; x < WIDTH; x++) {
-			int c = field[y][x].puyo;
-			DrawPuyo(x*32, (HEIGHT-y)*32, c);
+			DrawPuyo(x*32, (HEIGHT-y)*32, field[y][x]);
 		}
 	}
 
@@ -138,6 +138,39 @@ void Field::Draw()
 		int addY = sin(rotate * DX_PI_F / 2) * 32;
 		DrawPuyo(fallX * 32 + addX, (HEIGHT - fallY) * 32 + addY, fallPuyo[1]);
 	}
+}
+
+void Field::Connect()
+{
+	for (int y = 0; y < HEIGHT; y++) {
+		for (int x = 0; x < WIDTH; x++) {
+			field[y][x].connect = 0;
+		}
+	}
+	// ã‰º¶‰E‚É‚Â‚È‚ª‚Á‚Ä‚¢‚é”»’è
+	// ŽÀŒ±
+	for (int y = 0; y < HEIGHT; y++) {
+		for (int x = 0; x < WIDTH; x++) {
+			if (field[y][x].puyo != WALL) {
+				field[y][x].connect = CELL::UP + CELL::DOWN;
+			}
+		}
+	}
+}
+
+void Field::DrawPuyo(int x, int y, CELL& cell)
+{
+	if (cell.puyo == NOPUYO)
+		return;
+	int c;
+	if (cell.puyo == WALL)
+	{
+		c = 5;
+	} else
+	{
+		c = cell.puyo - 1;
+	}
+	DrawRectGraph(x, y, c * 32, cell.connect*32, 32, 32, hImage, TRUE);
 }
 
 void Field::DrawPuyo(int x, int y, int puyo)
