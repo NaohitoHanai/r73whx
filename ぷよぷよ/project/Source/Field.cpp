@@ -68,10 +68,15 @@ void Field::Update()
 		if (field[fallY - 1][fallX].puyo != NOPUYO) {
 			field[fallY][fallX].puyo = fallPuyo[0];
 			if (fallPuyo[1] != NOPUYO) { // éqÇ™écÇ¡ÇƒÇ¢ÇÈ
-				fallPuyo[0] = fallPuyo[1];
-				fallPuyo[1] = NOPUYO;
-				fallX = fallX1;
-				fallY = fallY1 - 1;
+				if (field[fallY1 - 1][fallX1].puyo != NOPUYO) {
+					field[fallY1][fallX1].puyo = fallPuyo[1];
+					CreateFallPuyo();
+				} else {
+					fallPuyo[0] = fallPuyo[1];
+					fallPuyo[1] = NOPUYO;
+					fallX = fallX1;
+					fallY = fallY1 - 1;
+				}
 			} else {
 				CreateFallPuyo();
 			}
@@ -82,13 +87,39 @@ void Field::Update()
 			fallTimer = 0.001f;
 		}
 	}
-	if (CheckHitKey(KEY_INPUT_M)) {
-		if (prevKey == false) {
-			rotate = (rotate + 1) % 4;
+	if (fallPuyo[1] != NOPUYO) {
+		if (CheckHitKey(KEY_INPUT_M)) {
+			if (prevKey == false) {
+				rotate = (rotate + 1) % 4;
+				int fallX1 = cosf(rotate * DX_PI_F / 2);
+				int fallY1 = sinf(rotate * DX_PI_F / 2);
+				fallX1 = fallX + fallX1;
+				fallY1 = fallY - fallY1;
+				if (field[fallY1][fallX1].puyo != NOPUYO) {
+					// éqÇ™à¯Ç¡Ç©Ç©ÇÈÇÃÇ≈ëŒçÙÇ∑ÇÈ
+					if (fallX1 == fallX + 1) {
+						if (field[fallY][fallX - 1].puyo == NOPUYO) {
+							fallX -= 1;
+						} else {
+							rotate = (rotate + 1) % 4;
+							fallY += 1;
+						}
+					} else if (fallX1 == fallX - 1) {
+						if (field[fallY][fallX + 1].puyo == NOPUYO) {
+							fallX += 1;
+						} else {
+							rotate = (rotate + 1) % 4;
+							fallY -= 1;
+						}
+					}
+
+
+				}
+			}
+			prevKey = true;
+		} else {
+			prevKey = false;
 		}
-		prevKey = true;
-	} else {
-		prevKey = false;
 	}
 }
 
