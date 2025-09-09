@@ -70,6 +70,7 @@ void Field::Update()
 			if (fallPuyo[1] != NOPUYO) { // 子が残っている
 				if (field[fallY1 - 1][fallX1].puyo != NOPUYO) {
 					field[fallY1][fallX1].puyo = fallPuyo[1];
+					Connect();
 					CreateFallPuyo();
 				} else {
 					fallPuyo[0] = fallPuyo[1];
@@ -78,6 +79,7 @@ void Field::Update()
 					fallY = fallY1 - 1;
 				}
 			} else {
+				Connect();
 				CreateFallPuyo();
 			}
 		} else {
@@ -121,7 +123,6 @@ void Field::Update()
 			prevKey = false;
 		}
 	}
-	Connect();
 }
 
 void Field::Draw()
@@ -145,17 +146,80 @@ void Field::Connect()
 	for (int y = 0; y < HEIGHT; y++) {
 		for (int x = 0; x < WIDTH; x++) {
 			field[y][x].connect = 0;
+			field[y][x].erase = false;
 		}
 	}
-	// 上下左右につながっている判定
-	// 実験
 	for (int y = 0; y < HEIGHT; y++) {
 		for (int x = 0; x < WIDTH; x++) {
-			if (field[y][x].puyo != WALL) {
-				field[y][x].connect = CELL::UP + CELL::DOWN;
+			int c = field[y][x].puyo;
+			if (c != WALL && c != NOPUYO) {
+				// 上下左右につながっている判定
+				if (field[y][x + 1].puyo == c) {
+					field[y][x].connect |= CELL::RIGHT;
+				}
+				if (field[y][x - 1].puyo == c) {
+					field[y][x].connect |= CELL::LEFT;
+				}
+				if (y < HEIGHT - 1 && field[y + 1][x].puyo == c) {
+					field[y][x].connect |= CELL::UP;
+				}
+				if (field[y - 1][x].puyo == c) {
+					field[y][x].connect |= CELL::DOWN;
+				}
 			}
 		}
 	}
+	// ４つ以上並んだ判定
+	for (int y = 0; y < HEIGHT; y++) {
+		for (int x = 0; x < WIDTH; x++) {
+			int c = field[y][x].puyo;
+			if (c != WALL && c != NOPUYO) {
+				// ToDo:(Func)全部のcheckedをfalseにする
+				EraseChecked();
+				field[y][x].checked = true;
+				// ToDo:(Func)ここから、４方向チェックする
+				int con = CheckConnect(x, y, c);
+				// ToDo:合計４個並んでたら、eraseをtrue
+				if (con >= 4) {
+					field[y][x].erase = true;
+				}
+			}
+		}
+	}
+}
+
+void Field::EraseChecked()
+{
+	for (int y = 0; y < HEIGHT; y++) {
+		for (int x = 0; x < WIDTH; x++) {
+			field[y][x].checked = false;
+		}
+	}
+}
+
+int Field::CheckConnect(int x, int y, int c)
+{
+	// ４方向チェック
+//	field[y][x].checked = true;
+	int ret = 1;
+	if (field[y][x + 1].puyo == c && field[y][x + 1].checked == false)
+	{
+		ret += CheckConnect(x + 1, y, c);
+	}
+	if (field[y][x - 1].puyo == c && field[y][x - 1].checked == false)
+	{
+		ret += CheckConnect(x - 1, y, c);
+	}
+	if (field[y - 1][x].puyo == c && field[y - 1][x].checked == false)
+	{
+		ret += CheckConnect(x, y - 1, c);
+	}
+	if (y < HEIGHT-1 &&
+		field[y + 1][x].puyo == c && field[y + 1][x].checked == false)
+	{
+		ret += CheckConnect(x, y + 1, c);
+	}
+	return ret;
 }
 
 void Field::DrawPuyo(int x, int y, CELL& cell)
@@ -171,6 +235,9 @@ void Field::DrawPuyo(int x, int y, CELL& cell)
 		c = cell.puyo - 1;
 	}
 	DrawRectGraph(x, y, c * 32, cell.connect*32, 32, 32, hImage, TRUE);
+	if (cell.erase) {
+		DrawCircle(x+16, y+16, 8, 255, 1);
+	}
 }
 
 void Field::DrawPuyo(int x, int y, int puyo)

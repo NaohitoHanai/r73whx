@@ -12,6 +12,17 @@ public:
 	void Draw() override;
 private:
 	void Connect(); // 接続判定
+
+	void EraseChecked();
+
+	/// <summary>
+	/// ４方向つながっているか調べる
+	/// </summary>
+	/// <param name="x">X座標</param>
+	/// <param name="y">Y座標</param>
+	/// <param name="c">色</param>
+	/// <returns>つながっている数</returns>
+	int CheckConnect(int x, int y, int c);
 	struct CELL {
 		int puyo;
 		enum {
@@ -21,6 +32,8 @@ private:
 			RIGHT = 8,
 		};
 		int connect;
+		bool erase; // 消えるブロック
+		bool checked; // ここはチェック済
 	};
 
 	void DrawPuyo(int x, int y, CELL& cell);
