@@ -200,7 +200,7 @@ void Field::EraseChecked()
 int Field::CheckConnect(int x, int y, int c)
 {
 	// ４方向チェック
-//	field[y][x].checked = true;
+	field[y][x].checked = true;
 	int ret = 1;
 	if (field[y][x + 1].puyo == c && field[y][x + 1].checked == false)
 	{
