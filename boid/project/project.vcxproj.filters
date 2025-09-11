@@ -53,6 +53,7 @@
     <ClCompile Include="Source\Boid.cpp">
       <Filter>PlayScene</Filter>
     </ClCompile>
+    <ClCompile Include="Source\BoidManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Screen.h" />
@@ -118,6 +119,9 @@
       <Filter>Library</Filter>
     </ClInclude>
     <ClInclude Include="Source\Boid.h">
+      <Filter>PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BoidManager.h">
       <Filter>PlayScene</Filter>
     </ClInclude>
   </ItemGroup>

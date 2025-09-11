@@ -1,6 +1,7 @@
 #pragma once
 #include "../Library/GameObject.h"
 
+class BoidManager;
 class Boid : public GameObject {
 public:
 	Boid(int x, int y);
@@ -12,4 +13,5 @@ public:
 private:
 	VECTOR2 position;
 	VECTOR2 velocity;
+	BoidManager* man;
 };

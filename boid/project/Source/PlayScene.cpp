@@ -1,12 +1,16 @@
 #include "PlayScene.h"
 #include "Boid.h"
+#include "BoidManager.h"
 #include "Screen.h"
 
 PlayScene::PlayScene()
 {
-	int x = rand() % Screen::WIDTH;
-	int y = rand() % Screen::HEIGHT;
-	new Boid(x, y);
+	new BoidManager();
+	for (int i = 0; i < 500; i++) {
+		int x = rand() % Screen::WIDTH;
+		int y = rand() % Screen::HEIGHT;
+		new Boid(x, y);
+	}
 }
 
 PlayScene::~PlayScene()
