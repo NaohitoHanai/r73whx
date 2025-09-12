@@ -29,8 +29,9 @@ void Boid::Update()
 		if (b == this) // Ž©•ª‚ðœŠO
 			continue;
 		VECTOR2 d = b->GetPosition() - position;
-		if (d.Size() < nearDist) {
-			nearDist = d.Size();
+		float dsize = d.Size();
+		if (dsize < nearDist) {
+			nearDist = dsize;
 			nearBoid = b;
 		}
 	}

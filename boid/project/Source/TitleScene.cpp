@@ -1,7 +1,25 @@
 #include "TitleScene.h"
+#include <thread>
+
+void func()
+{
+	for (int i = 0; i < 1000; i++)
+	{
+		char buf[256];
+		sprintf_s<256>(buf, "I=%d\n", i);
+		OutputDebugString(buf);
+		for (int j = 0; j < 100; j++)
+		{
+		}
+	}
+}
 
 TitleScene::TitleScene()
 {
+	std::thread th1(func);
+	std::thread th2(func);
+	th1.join();
+	th2.join();
 }
 
 TitleScene::~TitleScene()
@@ -10,6 +28,7 @@ TitleScene::~TitleScene()
 
 void TitleScene::Update()
 {
+
 	if (CheckHitKey(KEY_INPUT_P)) {
 		SceneManager::ChangeScene("PLAY");
 	}
