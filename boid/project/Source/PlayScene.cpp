@@ -6,7 +6,7 @@
 PlayScene::PlayScene()
 {
 	new BoidManager();
-	for (int i = 0; i < 500; i++) {
+	for (int i = 0; i < 500*2; i++) {
 		int x = rand() % Screen::WIDTH;
 		int y = rand() % Screen::HEIGHT;
 		new Boid(x, y);

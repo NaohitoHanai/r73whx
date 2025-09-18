@@ -2,7 +2,7 @@
 #include "../Library/GameObject.h"
 
 class BoidManager;
-class Boid : public GameObject {
+class Boid {
 public:
 	Boid(int x, int y);
 	~Boid();

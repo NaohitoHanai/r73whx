@@ -22,28 +22,28 @@ void Boid::Update()
 	add2 = add2.Normalize() * 0.5f;
 	velocity += add2;
 	// ③分離 一番近い物を探して、一定距離(10)以下なら離れようとする
-	Boid* nearBoid = nullptr;
+	VECTOR2 nearPos;
 	float nearDist = 9999999;
-	std::list<Boid*> boids = man->All();
-	for (Boid* b : boids) {
-		if (b == this) // 自分を除外
+	auto& pos = man->AllPosition();
+	for (VECTOR2 p : pos) {
+		if ((p - position).Size()==0) // 自分を除外
 			continue;
-		VECTOR2 d = b->GetPosition() - position;
+		VECTOR2 d = p - position;
 		float dsize = d.Size();
 		if (dsize < nearDist) {
 			nearDist = dsize;
-			nearBoid = b;
+			nearPos = p;
 		}
 	}
 	// 一番近いの(nearBoid)が見つかったので、離れる
 	if (nearDist < 10.0f) {
-		VECTOR2 add3 = position - nearBoid->GetPosition();
+		VECTOR2 add3 = position - nearPos;
 		add3 = add3.Normalize() * 0.5f;
 		velocity += add3;
 	}
 	// ④結合
 	if (nearDist > 100.0f) {
-		VECTOR2 add4 = nearBoid->GetPosition() - position;
+		VECTOR2 add4 = nearPos - position;
 		add4 = add4.Normalize() * 0.5f;
 		velocity += add4;
 	}
