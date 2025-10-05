@@ -2,6 +2,7 @@
 #include <fstream>
 #include <vector>
 #include "Goblin.h"
+#include "RedGoblin.h"
 #include "StageObj.h"
 #include "Field.h"
 
@@ -38,18 +39,13 @@ Stage::Stage()
 		} else if (strs[0] == "OBJ") {
 			int kind = stoi(strs[1]);
 			float x = stof(strs[2]);
-			float y = stof(strs[3]);
-			float z = stof(strs[4]);
-			float rx = stof(strs[5]);
-			float ry = stof(strs[6]);
-			float rz = stof(strs[7]);
-			float sx = stof(strs[8]);
 			float sy = stof(strs[9]);
 			float sz = stof(strs[10]);
-			new StageObj(kind, VGet(x,y,z), VGet(rx,ry,rz), VGet(sx,sy,sz));
+//			new StageObj(kind, VGet(x,y,z), VGet(rx,ry,rz), VGet(sx,sy,sz));
 		}
 	}
 	csv.close();
+	new RedGoblin(VGet(0, 150, 500), 0);
 }
 
 Stage::~Stage()

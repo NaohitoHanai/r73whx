@@ -152,6 +152,9 @@
     <ClInclude Include="Library\SceneBase.h" />
     <ClInclude Include="Library\SceneManager.h" />
     <ClInclude Include="Library\Time.h" />
+    <ClInclude Include="Source\ActAttack.h" />
+    <ClInclude Include="Source\ActionBase.h" />
+    <ClInclude Include="Source\ActRun.h" />
     <ClInclude Include="Source\Animator.h" />
     <ClInclude Include="Source\BootScene.h" />
     <ClInclude Include="Source\Camera.h" />
@@ -159,6 +162,7 @@
     <ClInclude Include="Source\Goblin.h" />
     <ClInclude Include="Source\Object3D.h" />
     <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\RedGoblin.h" />
     <ClInclude Include="Source\Screen.h" />
     <ClInclude Include="Source\PlayScene.h" />
     <ClInclude Include="Source\SceneFactory.h" />
@@ -180,6 +184,9 @@
     <ClCompile Include="Library\ObjectManager.cpp" />
     <ClCompile Include="Library\SceneManager.cpp" />
     <ClCompile Include="Library\Time.cpp" />
+    <ClCompile Include="Source\ActAttack.cpp" />
+    <ClCompile Include="Source\ActionBase.cpp" />
+    <ClCompile Include="Source\ActRun.cpp" />
     <ClCompile Include="Source\Animator.cpp" />
     <ClCompile Include="Source\BootScene.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
@@ -188,6 +195,7 @@
     <ClCompile Include="Source\Object3D.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\PlayScene.cpp" />
+    <ClCompile Include="Source\RedGoblin.cpp" />
     <ClCompile Include="Source\SceneFactory.cpp" />
     <ClCompile Include="Source\Stage.cpp" />
     <ClCompile Include="Source\StageObj.cpp" />
