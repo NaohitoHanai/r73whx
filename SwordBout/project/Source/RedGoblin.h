@@ -2,6 +2,7 @@
 #include "Object3D.h"
 #include "Animator.h"
 #include "ActionBase.h"
+class RedGoblinAI;
 
 class RedGoblin : public Object3D {
 public:
@@ -18,6 +19,7 @@ public:
 
 	friend class ActRun;
 	friend class ActAttack;
+	friend class RedGoblinAI;
 private:
 	Animator* anim;
 	int hWeapon;
@@ -28,5 +30,6 @@ private:
 	};
 	ActionBase* actions[ActID::A_MAX];
 	ActID actID;
+	RedGoblinAI* ai;
 	void ChangeAction(ActID act);
 };

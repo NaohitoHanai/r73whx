@@ -2,6 +2,7 @@
 #include <assert.h>
 #include "ActAttack.h"
 #include "ActRun.h"
+#include "RedGoblinAI.h"
 
 RedGoblin::RedGoblin()
 {
@@ -27,6 +28,7 @@ RedGoblin::RedGoblin(VECTOR pos, float rotY)
 	actions[ActID::A_ATTACK] = new ActAttack(this);
 	actions[ActID::A_RUN] = new ActRun(this);
 	actID = ActID::A_RUN;
+	ai = new RedGoblinAI(this);
 	actions[actID]->Resume();
 }
 
@@ -37,6 +39,7 @@ RedGoblin::~RedGoblin()
 void RedGoblin::Update()
 {
 	anim->Update();
+	ai->Update();
 	actions[actID]->Update();
 }
 

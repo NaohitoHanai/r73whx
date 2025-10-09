@@ -10,4 +10,6 @@ public:
 	void Update() override;
 	void Suspend() override;
 	void Resume() override;
+	bool IsFinish() override;
+	bool EnableCancel() override;
 };

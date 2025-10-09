@@ -74,10 +74,18 @@
     <ClCompile Include="Source\StageObj.cpp">
       <Filter>PlayScene</Filter>
     </ClCompile>
-    <ClCompile Include="Source\RedGoblin.cpp" />
-    <ClCompile Include="Source\ActionBase.cpp" />
-    <ClCompile Include="Source\ActAttack.cpp" />
-    <ClCompile Include="Source\ActRun.cpp" />
+    <ClCompile Include="Source\RedGoblin.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RedGoblinAI.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ActAttack.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ActRun.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Screen.h" />
@@ -176,6 +184,9 @@
       <Filter>PlayScene</Filter>
     </ClInclude>
     <ClInclude Include="Source\ActRun.h">
+      <Filter>PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RedGoblinAI.h">
       <Filter>PlayScene</Filter>
     </ClInclude>
   </ItemGroup>
