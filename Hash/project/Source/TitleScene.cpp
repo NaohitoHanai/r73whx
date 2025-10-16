@@ -1,7 +1,18 @@
 #include "TitleScene.h"
+#include "HashTable.h"
 
 TitleScene::TitleScene()
 {
+	HashTable* hash = new HashTable();
+	hash->Set("Attack", 20);
+	hash->Set("MaxLife", 1000);
+	hash->Set("Atatck", 100);
+	hash->Set("Attack", 30);
+
+	int a = hash->Get("Attack");
+	char s[20];
+	sprintf_s<20>(s, "a=%d\n", a);
+	OutputDebugString(s);
 }
 
 TitleScene::~TitleScene()
