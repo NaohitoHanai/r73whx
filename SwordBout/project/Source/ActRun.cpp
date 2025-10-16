@@ -10,8 +10,12 @@ ActRun::~ActRun()
 
 void ActRun::Update()
 {
-//	dynamic_cast<RedGoblin*>(parent)->transform
-	Parent<RedGoblin>()->transform.position.z += 1.0f;
+	//moveTarget‚ÉŒü‚©‚Á‚ÄˆÚ“®‚É‚·‚é
+	Transform& tr = Parent<RedGoblin>()->transform;
+	VECTOR move = moveTarget - tr.position;
+	move = VNorm(move)*5.0f;
+	tr.rotation.y = atan2(move.x, move.z);
+	tr.position += move;
 }
 
 void ActRun::Suspend()

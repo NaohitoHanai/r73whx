@@ -10,4 +10,7 @@ public:
 	void Update() override;
 	void Suspend() override;
 	void Resume() override;
+	void SetTarget(VECTOR pos) { moveTarget = pos; }
+private:
+	VECTOR moveTarget;
 };
