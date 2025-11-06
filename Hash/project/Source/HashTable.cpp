@@ -10,6 +10,21 @@ int size = 2;
 int used = 0;
 std::vector<HashNode> table;
 
+//«‘‡‚Ås1‚ªs2‚æ‚è‘O‚È‚çtrue
+bool CompStr(std::string s1, std::string s2)
+{
+    for (int i = 0; i < s1.size(); i++) {
+        if (s2.size() <= i) {
+            return false;
+        }
+        if (s1[i] < s2[i])
+            return true;
+        else if (s1[i] > s2[i])
+            return false;
+    }
+    return true;
+}
+
 int CalcHash(std::string s)
 {
     int sum = 0;
