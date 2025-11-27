@@ -114,6 +114,9 @@
     <ClInclude Include="Library\myDxLib.h">
       <Filter>Library</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SaveLoad.h">
+      <Filter>TitleScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Library">
